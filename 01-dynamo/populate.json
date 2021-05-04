@@ -1,0 +1,148 @@
+{
+      "pets" : [
+         {
+            "PutRequest": {
+               "Item": {
+                  "PetId" : {
+                     "S": "4e53920c"
+                  },
+                  "PetOwner" : {
+                     "S": "Betzy"
+                  },
+                  "PetName" : {
+                     "S": "Candy"
+                  },
+                  "PetAge" : {
+                     "S": "8"
+                  },
+                  "PetSpecies" : {
+                     "S": "Perro"
+                  },
+                  "PetImages" : {
+                     "S": "https://s3-technical-test-images.s3.amazonaws.com/candy.jpg"
+                  }
+               }
+            }
+         },
+         {
+            "PutRequest": {
+               "Item": {
+                  "PetId" : {
+                     "S": "4e53921c"
+                  },
+                  "PetOwner" : {
+                     "S": "Yenis"
+                  },
+                  "PetName" : {
+                     "S": "Annie"
+                  },
+                  "PetAge" : {
+                     "S": "10"
+                  },
+                  "PetSpecies" : {
+                     "S": "Perro"
+                  },
+                  "PetImages" : {
+                     "S": "https://s3-technical-test-images.s3.amazonaws.com/candy.jpg"
+                  }
+               }
+            }
+         },
+         {
+            "PutRequest": {
+               "Item": {
+                  "PetId" : {
+                     "S": "4e53922c"
+                  },
+                  "PetOwner" : {
+                     "S": "Yenis"
+                  },
+                  "PetName" : {
+                     "S": "Pachi"
+                  },
+                  "PetAge" : {
+                     "S": "1"
+                  },
+                  "PetSpecies" : {
+                     "S": "Gato"
+                  },
+                  "PetImages" : {
+                     "S": "https://s3-technical-test-images.s3.amazonaws.com/gato.jpg"
+                  }
+               }
+            }
+         },
+         {
+            "PutRequest": {
+               "Item": {
+                  "PetId" : {
+                     "S": "4e53923c"
+                  },
+                  "PetOwner" : {
+                     "S": "Chavela"
+                  },
+                  "PetName" : {
+                     "S": "Lorenzo"
+                  },
+                  "PetAge" : {
+                     "S": "2"
+                  },
+                  "PetSpecies" : {
+                     "S": "Ave"
+                  },
+                  "PetImages" : {
+                     "S": "https://s3-technical-test-images.s3.amazonaws.com/loro.jpg"
+                  }
+               }
+            }
+         },
+         {
+            "PutRequest": {
+               "Item": {
+                  "PetId" : {
+                     "S": "4e53924c"
+                  },
+                  "PetOwner" : {
+                     "S": "Nerys"
+                  },
+                  "PetName" : {
+                     "S": "Morgan"
+                  },
+                  "PetAge" : {
+                     "S": "4"
+                  },
+                  "PetSpecies" : {
+                     "S": "Perro"
+                  },
+                  "PetImages" : {
+                     "S": "https://s3-technical-test-images.s3.amazonaws.com/bruno.jpg"
+                  }
+               }
+            }
+         },
+         {
+            "PutRequest": {
+               "Item": {
+                  "PetId" : {
+                     "S": "4e53925c"
+                  },
+                  "PetOwner" : {
+                     "S": "Yenifer"
+                  },
+                  "PetName" : {
+                     "S": "Natacha"
+                  },
+                  "PetAge" : {
+                     "S": "1"
+                  },
+                  "PetSpecies" : {
+                     "S": "Gato"
+                  },
+                  "PetImages" : {
+                     "S": "https://s3-technical-test-images.s3.amazonaws.com/gato.jpg"
+                  }
+               }
+            }
+         }
+      ]
+   }
