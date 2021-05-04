@@ -1,21 +1,25 @@
-1) Crear la estructura del proyecto
-2) Crear un archivo json para hacer la creación de la tabla en dynamodb
-3) Crear un archivo json para hacer la creación de los items en la tabla dynamodb
-4) Ejecutar los comandos en el siguiente orden 
-4.1) Ubicarse directamente sobre enviroment y ejecutar el siguiente comando.
+CREACION DE TABLA DYNAMO
 
+En este módulo se va a crear una tabla en dynamo que será utiliza por el microservicio que se va a crear en ECS. Para almacenar datos de mascotas.
+El servicio se encargará de devolver el resultado en formato json de todas las mascotas.
+Siga los pasos 
+
+1) Clonar este proyecto con el comando
+
+2) En este primer módulo se realizará la creación y la inserción de los items utilizando las APis de AWS
+2.1) Ubicarse directamente sobre la carpeta environment y ejecutar los siguientes comando
 
 CREACION DE LA TABLA
 aws dynamodb create-table --cli-input-json file://~/environment/aws-lab-vpc/01-dynamo/dynamodb.json
 
 LISTAR LOS DETALLES DE LA TABLA RECIEN CREADA
-aws dynamodb describe-table --table-name MysfitsTable
+aws dynamodb describe-table --table-name MyPets
 
 ESCANEAR EL CONTENIDO DE LA TABLA RECIEN CREADA
-aws dynamodb scan --table-name MysfitsTable
+aws dynamodb scan --table-name MyPets
 
 CREAR REGISTROS EN LA TABLA
 aws dynamodb batch-write-item --request-items file://~/environment/aws-lab-vpc/01-dynamo/createItems.json
 
 ESCANEAR EL CONTENIDO DE LA TABLA RECIEN CREADA
-aws dynamodb scan --table-name MysfitsTable
+aws dynamodb scan --table-name MyPets
