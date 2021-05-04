@@ -1,0 +1,21 @@
+1) Crear la estructura del proyecto
+2) Crear un archivo json para hacer la creación de la tabla en dynamodb
+3) Crear un archivo json para hacer la creación de los items en la tabla dynamodb
+4) Ejecutar los comandos en el siguiente orden 
+4.1) Ubicarse directamente sobre enviroment y ejecutar el siguiente comando.
+
+
+CREACION DE LA TABLA
+aws dynamodb create-table --cli-input-json file://~/environment/aws-lab-vpc/01-dynamo/dynamodb.json
+
+LISTAR LOS DETALLES DE LA TABLA RECIEN CREADA
+aws dynamodb describe-table --table-name MysfitsTable
+
+ESCANEAR EL CONTENIDO DE LA TABLA RECIEN CREADA
+aws dynamodb scan --table-name MysfitsTable
+
+CREAR REGISTROS EN LA TABLA
+aws dynamodb batch-write-item --request-items file://~/environment/aws-lab-vpc/01-dynamo/createItems.json
+
+ESCANEAR EL CONTENIDO DE LA TABLA RECIEN CREADA
+aws dynamodb scan --table-name MysfitsTable
