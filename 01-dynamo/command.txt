@@ -6,7 +6,7 @@ Siga los pasos
 
 1) Clonar este proyecto con el comando
 
-git clone -b python https://github.com/aws-samples/aws-modern-application-workshop.git
+git clone -b python https://github.com/betzy-salas/aws-lab-vpc.git
 
 2) En este primer módulo se realizará la creación y la inserción de los items utilizando las APis de AWS
 2.1) Ubicarse directamente sobre la carpeta environment y ejecutar los siguientes comando
