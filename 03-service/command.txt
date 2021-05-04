@@ -1,0 +1,31 @@
+1) Ubicarse en la carpeta 03-service
+2) Crear la imagen de docker reemplazando los valores.  Estos valores se encuentran en el stack de cloudFormation o directamente en los recursos
+
+****NOTA: AL CREAR LA IMAGEN SE ENTREGARA EL TAG
+docker build . -t REPLACE_ME_AWS_ACCOUNT_ID.dkr.ecr.REPLACE_ME_REGION.amazonaws.com/mythicalmysfits/service:latest
+
+docker build . -t 448158147091.dkr.ecr.us-east-2.amazonaws.com/mythicalmysfits/service:latest
+
+3) Correr la imagen de docker de forma local
+
+docker run -p 8080:8080 REPLACE_ME_WITH_DOCKER_IMAGE_TAG
+docker run -p 8080:8080 448158147091.dkr.ecr.us-east-2.amazonaws.com/mythicalmysfits/service:latest
+
+4) Crear repositorio en ECR, obtener login y subir imagen al servicio de ECR
+
+aws ecr create-repository --repository-name mythicalmysfits/service
+
+$(aws ecr get-login --no-include-email)
+
+docker push REPLACE_ME_WITH_DOCKER_IMAGE_TAG
+docker push 448158147091.dkr.ecr.us-east-2.amazonaws.com/mythicalmysfits/service:latest
+aws ecr describe-images --repository-name mythicalmysfits/service
+
+5) Una vez se tenga la imagen en ECR, crear manualmente los logs en cloud watch  (mythicalmysfits-logs)
+
+Si lo prefiere ejecute el siguiente comando para crearlo usando las apis que ofrece AWS
+aws logs create-log-group --log-group-name mythicalmysfits-logs
+
+6) Crear manualmente el cluster en ECS
+7) Crear la task teniendo presente los componentes de arquitectura (Los servicios van a ir alojados en la subred privada)
+8) Crear el service teniendo presente los componentes de arquitectura
