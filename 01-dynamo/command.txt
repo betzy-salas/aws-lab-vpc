@@ -21,7 +21,7 @@ ESCANEAR EL CONTENIDO DE LA TABLA RECIEN CREADA
 aws dynamodb scan --table-name MyPets
 
 CREAR REGISTROS EN LA TABLA
-aws dynamodb batch-write-item --request-items file://~/environment/aws-lab-vpc/01-dynamo/createItems.json
+aws dynamodb batch-write-item --request-items file://~/environment/aws-lab-vpc/01-dynamo/populate.json
 
 ESCANEAR EL CONTENIDO DE LA TABLA RECIEN CREADA
 aws dynamodb scan --table-name MyPets
