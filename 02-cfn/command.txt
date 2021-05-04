@@ -1,0 +1,22 @@
+1) Crear la estructura del proyecto
+2) Crear un archivo yml para crear la plantilla que se utilizará para crear los stack en CloudFormation
+3) Ejecutar los comandos en el siguiente orden 
+3.1) Ubicarse directamente sobre enviroment y ejecutar el siguiente comando.
+
+
+CREACION DE LA TABLA
+aws cloudformation create-stack --stack-name MythicalMysfitsCoreStack --capabilities CAPABILITY_NAMED_IAM --template-body file://~/environment/aws-lab-vpc/02-cfn/core.yml
+
+CREACION DEL LOAD BALANCER - TARGET GROUP - LISTENER 
+*****NOTA SE DEBEN REEMPLAZAR LOS VALORES POR LOS DATOS PROPIOS DE SUS RECURSOS*********
+aws elbv2 create-load-balancer --name mysfits-nlb --scheme internet-facing --type network --subnets REPLACE_ME_PUBLIC_SUBNET_ONE REPLACE_ME_PUBLIC_SUBNET_TWO > ~/environment/nlb-output.json
+aws elbv2 create-target-group --name MythicalMysfits-TargetGroup --port 8080 --protocol TCP --target-type ip --vpc-id 
+REPLACE_ME_VPC_ID --health-check-interval-seconds 10 --health-check-path / --health-check-protocol 
+HTTP --healthy-threshold-count 3 --unhealthy-threshold-count 3 > ~/environment/target-group-output.json
+aws elbv2 create-listener --default-actions TargetGroupArn=REPLACE_ME_NLB_TARGET_GROUP_ARN,Type=forward --load-balancer-arn REPLACE_ME_NLB_ARN --port 80 --protocol TCP
+
+aws elbv2 create-load-balancer --name mysfits-nlb --scheme internet-facing --type network --subnets subnet-0928fa83bffa66e04 subnet-0fcedc49d541e54f6 > ~/environment/nlb-output.json
+aws elbv2 create-target-group --name MythicalMysfits-TargetGroup --port 8080 --protocol TCP --target-type ip --vpc-id 	vpc-022974c5cd1059ab8 --health-check-interval-seconds 10 --health-check-path / --health-check-protocol HTTP --healthy-threshold-count 3 --unhealthy-threshold-count 3 > ~/environment/target-group-output.json
+aws elbv2 create-listener --default-actions 
+TargetGroupArn=arn:aws:elasticloadbalancing:us-east-2:448158147091:targetgroup/MythicalMysfits-TargetGroup/ad3edcd1a26d86ad,Type=forward 
+--load-balancer-arn arn:aws:elasticloadbalancing:us-east-2:448158147091:loadbalancer/net/mysfits-nlb/1e2bf868844c025b --port 80 --protocol TCP
