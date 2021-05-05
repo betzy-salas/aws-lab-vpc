@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, json, Response, request
 from flask_cors import CORS
-import healthyPetsTableClient
+import myPetsTableClient
 
 
 app = Flask(__name__)
@@ -10,10 +10,14 @@ CORS(app)
 def healthCheckResponse():
     return jsonify({"message" : "Nothing here, used for health check. Try /mypets instead."})
     
+@app.route("/greeting")
+def greetingResponse():
+    return jsonify({"message" : "Remember, remember the Fifth of November, The Gunpowder Treason and Plot, I know of no reason Why the Gunpowder Treason Should ever be forgot.."})
+    
 @app.route("/mypets")
 def getMyPets():
 
-    serviceResponse = healthyPetsTableClient.getAllMyPets()
+    serviceResponse = myPetsTableClient.getAllMyPets()
 
     flaskResponse = Response(serviceResponse)
     flaskResponse.headers["Content-Type"] = "application/json"
