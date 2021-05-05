@@ -16,14 +16,14 @@ docker build . -t 757681054660.dkr.ecr.us-east-1.amazonaws.com/mypets/service:la
 3) Correr la imagen de docker de forma local (Probablemente este servicio no va funcionar correctamente por temas de permisos)
 
 docker run -p 8080:8080 REPLACE_ME_WITH_DOCKER_IMAGE_TAG
-docker run -p 8080:8080 757681054660.dkr.ecr.us-east-2.amazonaws.com/mypets/service:latest
+docker run -p 8080:8080 757681054660.dkr.ecr.us-east-1.amazonaws.com/mypets/service:latest
 
 4) Eejecutar el siguiente comando
 $(aws ecr get-login --no-include-email)
 
 docker push REPLACE_ME_WITH_DOCKER_IMAGE_TAG
-docker push 757681054660.dkr.ecr.us-east-2.amazonaws.com/mypets/service:latest
-aws ecr describe-images --repository-name mythicalmysfits/service
+docker push 757681054660.dkr.ecr.us-east-1.amazonaws.com/mypets/service:latest
+aws ecr describe-images --repository-name mypets/service
 
 5) Una vez se tenga la imagen en ECR, crear manualmente los logs en cloud watch  (mypets-logs)
 
@@ -35,3 +35,4 @@ los siguientes pasos se crean basados en las imagenes que se encuentran en la ca
 6) Crear manualmente el cluster en ECS
 7) Crear la task teniendo presente los componentes de arquitectura (Los servicios van a ir alojados en la subred privada)
 8) Crear el service teniendo presente los componentes de arquitectura
+
