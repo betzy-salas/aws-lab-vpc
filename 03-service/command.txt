@@ -4,6 +4,8 @@ Ahora se creará un servicio que consulte los datos almacenados en la tabla dyna
 
 Para ello, crearemos el servicio contenerizado
 
+CREAR SERVICIO CONTENERIZADO
+
 1) Ubicarse en la carpeta 03-service
 2) Crear la imagen de docker reemplazando los valores.  Estos valores se encuentran en el stack de cloudFormation o directamente en los recursos
 
@@ -18,6 +20,7 @@ docker build . -t 757681054660.dkr.ecr.us-east-1.amazonaws.com/mypets/service:la
 docker run -p 8080:8080 REPLACE_ME_WITH_DOCKER_IMAGE_TAG
 docker run -p 8080:8080 757681054660.dkr.ecr.us-east-1.amazonaws.com/mypets/service:latest
 
+SUBIR LA IMAGEN DEL CONTENEDOR EN ECR
 4) Eejecutar el siguiente comando
 $(aws ecr get-login --no-include-email)
 
@@ -25,14 +28,19 @@ docker push REPLACE_ME_WITH_DOCKER_IMAGE_TAG
 docker push 757681054660.dkr.ecr.us-east-1.amazonaws.com/mypets/service:latest
 aws ecr describe-images --repository-name mypets/service
 
+CREAR EL LOG GROUP EN CLOUF WATCH
 5) Una vez se tenga la imagen en ECR, crear manualmente los logs en cloud watch  (mypets-logs)
 
 Si lo prefiere ejecute el siguiente comando para crearlo usando las apis que ofrece AWS
 aws logs create-log-group --log-group-name mypets-logs
 
+CREAR EL CLUSTER DE ECS PARA ALOJAR EL SERVICIO
 los siguientes pasos se crean basados en las imagenes que se encuentran en la carpeta images
 
 6) Crear manualmente el cluster en ECS
 7) Crear la task teniendo presente los componentes de arquitectura (Los servicios van a ir alojados en la subred privada)
 8) Crear el service teniendo presente los componentes de arquitectura
+
+PROBAR EL SERVICIO
+9) Abra la dirección del DNS asociado al balanceador de carga
 
