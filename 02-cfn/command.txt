@@ -2,18 +2,14 @@ CREACION DE LA INFRAESTRUCTURA QUE VA A SOPORTAR EL SERVICIO
 
 
 CREACION DEL STACK
-aws cloudformation create-stack --stack-name MythicalMysfitsCoreStack --capabilities CAPABILITY_NAMED_IAM --template-body file://~/environment/aws-lab-vpc/02-cfn/core.yml
+aws cloudformation create-stack --stack-name CoreStack --capabilities CAPABILITY_NAMED_IAM --template-body file://~/environment/aws-lab-vpc/02-cfn/core.yml
 
-CREACION DEL LOAD BALANCER - TARGET GROUP - LISTENER 
-*****NOTA SE DEBEN REEMPLAZAR LOS VALORES POR LOS DATOS PROPIOS DE SUS RECURSOS*********
-aws elbv2 create-load-balancer --name mysfits-nlb --scheme internet-facing --type network --subnets REPLACE_ME_PUBLIC_SUBNET_ONE REPLACE_ME_PUBLIC_SUBNET_TWO > ~/environment/nlb-output.json
-aws elbv2 create-target-group --name MythicalMysfits-TargetGroup --port 8080 --protocol TCP --target-type ip --vpc-id 
-REPLACE_ME_VPC_ID --health-check-interval-seconds 10 --health-check-path / --health-check-protocol 
-HTTP --healthy-threshold-count 3 --unhealthy-threshold-count 3 > ~/environment/target-group-output.json
-aws elbv2 create-listener --default-actions TargetGroupArn=REPLACE_ME_NLB_TARGET_GROUP_ARN,Type=forward --load-balancer-arn REPLACE_ME_NLB_ARN --port 80 --protocol TCP
 
-aws elbv2 create-load-balancer --name mysfits-nlb --scheme internet-facing --type network --subnets subnet-0928fa83bffa66e04 subnet-0fcedc49d541e54f6 > ~/environment/nlb-output.json
-aws elbv2 create-target-group --name MythicalMysfits-TargetGroup --port 8080 --protocol TCP --target-type ip --vpc-id 	vpc-022974c5cd1059ab8 --health-check-interval-seconds 10 --health-check-path / --health-check-protocol HTTP --healthy-threshold-count 3 --unhealthy-threshold-count 3 > ~/environment/target-group-output.json
-aws elbv2 create-listener --default-actions 
-TargetGroupArn=arn:aws:elasticloadbalancing:us-east-2:448158147091:targetgroup/MythicalMysfits-TargetGroup/ad3edcd1a26d86ad,Type=forward 
---load-balancer-arn arn:aws:elasticloadbalancing:us-east-2:448158147091:loadbalancer/net/mysfits-nlb/1e2bf868844c025b --port 80 --protocol TCP
+Incluye la creación de los siguientes componentes
+Una Amazon VPC: un entorno de redes que contiene cuatro subredes (dos públicas y dos privadas) en el espacio IP privado 10.0.0.0/16, así como también todas las configuraciones de las tablas de enrutamiento. Las subredes de esta red se crean en zonas de disponibilidad (AZ) de AWS separadas a fin de permitir una alta disponibilidad en varias instalaciones físicas de una región de AWS. Obtenga más información acerca de cómo las zonas de disponibilidad pueden ayudarlo a lograr una alta disponibilidad.
+Dos Gateways NAT (una para cada subred pública): permiten que los contenedores que eventualmente implementemos en nuestras subredes privadas se comuniquen con Internet a fin de descargar los paquetes necesarios, etc.
+Un punto de enlace de la VPC de DynamoDB: nuestro backend de microservicio se integrará en algún momento con Amazon DynamoDB..
+Un grupo de seguridad: permite a los contenedores de Docker recibir tráfico por el puerto 8080 desde Internet y a través del balanceador de carga de red.
+Roles de IAM: se crean roles de Identity and Access Management. 
+Balanceador de Carga: Un balanceador de carga distribuye el tráfico entrante entre los Target Group, como  instancias EC2. Esto le permite aumentar la disponibilidad de la aplicación. El balanceador de carga también supervisa el estado de los Target Group registrados y garantiza que enruta el tráfico solo a los que esten en buen estado. Se configura el balanceador de carga para aceptar el tráfico entrante especificando uno o más listeners, que están configurados con un protocolo y un número de puerto para las conexiones de los clientes al balanceador de carga. Configura un Target Group con un protocolo y un número de puerto para las conexiones desde el balanceador de carga a los TargetGroup, y con la configuración de verificación de estado que se utilizará al verificar el estado de salud de los destinos.
+Elastic Container Service: Amazon Elastic Container Registry (Amazon ECR) es un servicio de registro de imágenes de contenedor administrado por AWS que es seguro, escalable y confiable. Amazon ECR admite repositorios de imágenes de contenedores privados con permisos basados ​​en recursos mediante AWS IAM. Esto es para que usuarios específicos o instancias de Amazon EC2 puedan acceder a sus imágenes y repositorios de contenedores. Puede usar su CLI preferida para enviar, extraer y administrar imágenes de Docker, imágenes de Open Container Initiative (OCI) y artefactos compatibles con OCI.
