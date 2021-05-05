@@ -301,14 +301,17 @@ Resources:
 
             - Effect: Allow
               Action:
-                # Allows the ECS tasks to interact with only the MysfitsTable
+                # Allows the ECS tasks to interact with only the MyPets
                 # in DynamoDB
                 - 'dynamodb:Scan'
                 - 'dynamodb:Query'
                 - 'dynamodb:UpdateItem'
                 - 'dynamodb:GetItem'
-              Resource: 'arn:aws:dynamodb:*:*:table/MysfitsTable*'
-
+              Resource: 'arn:aws:dynamodb:*:*:table/MyPets*'
+              
+  # Rather than directly expose our service to the Internet,  
+  # we will provision a Network Load Balancer (NLB)
+  # to sit in front of our service tier
   MyPetsLoadBalancerPet:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -319,6 +322,10 @@ Resources:
         - !Ref PublicSubnetPetTwo
       Type: "network"
   
+  # A target group allows AWS resources to register themselves as targets for requests 
+  # that the load balancer receives to forward. Our service containers will automatically 
+  # register to this target so that they can receive traffic from the NLB when they are 
+  #provisioned
   MyPetsTargetGroupPet:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -334,16 +341,20 @@ Resources:
       VpcId: !Ref 'MyVPC'
     DependsOn: MyVPC
   
+  # This informs that load balancer that for requests received on a specific port, 
+  # they should be forwarded to targets that have registered to the above target group
   MyPetsLoadBalancerListenerPet:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
-      LoadBalancerArn: !GetAtt 'MyPetsLoadBalancerPet.LoadBalancerFullName'
+      LoadBalancerArn: !Ref MyPetsLoadBalancerPet
       Port: 80
       Protocol: "TCP"
       DefaultActions:
         - Type : "forward"
-          TargetGroupArn: !GetAtt 'MyPetsTargetGroupPet.TargetGroupFullName'
-  
+          TargetGroupArn: !Ref MyPetsTargetGroupPet
+          
+  # We're ready to create a container image repository in Amazon Elastic Container 
+  # Registry (Amazon ECR) and push our image into it
   ECRRepositoryPets:
     Type: AWS::ECR::Repository
     Properties:
@@ -363,8 +374,6 @@ Resources:
               - "ecr:InitiateLayerUpload"
               - "ecr:UploadLayerPart"
               - "ecr:CompleteLayerUpload"
-
-        
 
 # These are the values output by the CloudFormation template. Be careful
 # about changing any of them, because of them are exported with specific
