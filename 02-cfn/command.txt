@@ -1,10 +1,7 @@
-1) Crear la estructura del proyecto
-2) Crear un archivo yml para crear la plantilla que se utilizará para crear los stack en CloudFormation
-3) Ejecutar los comandos en el siguiente orden 
-3.1) Ubicarse directamente sobre enviroment y ejecutar el siguiente comando.
+CREACION DE LA INFRAESTRUCTURA QUE VA A SOPORTAR EL SERVICIO
 
 
-CREACION DE LA TABLA
+CREACION DEL STACK
 aws cloudformation create-stack --stack-name MythicalMysfitsCoreStack --capabilities CAPABILITY_NAMED_IAM --template-body file://~/environment/aws-lab-vpc/02-cfn/core.yml
 
 CREACION DEL LOAD BALANCER - TARGET GROUP - LISTENER 
