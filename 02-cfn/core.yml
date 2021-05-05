@@ -98,11 +98,11 @@ Resources:
       VpcId: !Ref 'MyVPC'
   PublicRoutePet:
     Type: AWS::EC2::Route
-    DependsOn: GatewayAttachement
+    DependsOn: GatewayAttachementPet
     Properties:
       RouteTableId: !Ref 'PublicRoutePetTable'
       DestinationCidrBlock: '0.0.0.0/0'
-      GatewayId: !Ref 'InternetGateway'
+      GatewayId: !Ref 'InternetGatewayPet'
   PublicSubnetPetOneRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
@@ -120,12 +120,12 @@ Resources:
   # each private subnet.
   NatGatewayPetOneAttachment:
     Type: AWS::EC2::EIP
-    DependsOn: GatewayAttachement
+    DependsOn: GatewayAttachementPet
     Properties:
         Domain: vpc
   NatGatewayPetTwoAttachment:
     Type: AWS::EC2::EIP
-    DependsOn: GatewayAttachement
+    DependsOn: GatewayAttachementPet
     Properties:
         Domain: vpc
   NatGatewayPetOne:
@@ -437,6 +437,6 @@ Outputs:
       Name: !Join [ ':', [ !Ref 'AWS::StackName', 'MyPetsLoadBalancerListenerPet' ] ]
   ECRRepositoryPets:
     Description: REPLACE_ME_ECR_REPOSITORY
-    Value: Value: !GetAtt ECRRepositoryPets.Arn
+    Value: !GetAtt ECRRepositoryPets.Arn
     Export:
       Name: !Join [ ':', [ !Ref 'AWS::StackName', 'ECRRepositoryPets' ] ]
