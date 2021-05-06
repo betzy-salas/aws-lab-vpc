@@ -21,7 +21,7 @@ docker run -p 8080:8080 REPLACE_ME_WITH_DOCKER_IMAGE_TAG
 docker run -p 8080:8080 757681054660.dkr.ecr.us-east-1.amazonaws.com/mypets/service:latest
 
 SUBIR LA IMAGEN DEL CONTENEDOR EN ECR
-4) Eejecutar el siguiente comando
+4) Ejecutar el siguiente comando
 $(aws ecr get-login --no-include-email)
 
 docker push REPLACE_ME_WITH_DOCKER_IMAGE_TAG
@@ -37,10 +37,13 @@ aws logs create-log-group --log-group-name mypets-logs
 CREAR EL CLUSTER DE ECS PARA ALOJAR EL SERVICIO
 los siguientes pasos se crean basados en las imagenes que se encuentran en la carpeta images
 
-6) Crear manualmente el cluster en ECS
-7) Crear la task teniendo presente los componentes de arquitectura (Los servicios van a ir alojados en la subred privada)
-8) Crear el service teniendo presente los componentes de arquitectura
+6) Cree un rol vinculado al servicio para ECS.  Si genera error es porque ya lo tiene creado.
+aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
+
+7) Crear manualmente el cluster en ECS
+8) Crear la task teniendo presente los componentes de arquitectura (Los servicios van a ir alojados en la subred privada)
+9) Crear el service teniendo presente los componentes de arquitectura
 
 PROBAR EL SERVICIO
-9) Abra la dirección del DNS asociado al balanceador de carga
+10) Abra la dirección del DNS asociado al balanceador de carga
 
