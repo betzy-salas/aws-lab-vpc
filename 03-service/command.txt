@@ -28,7 +28,7 @@ docker push REPLACE_ME_WITH_DOCKER_IMAGE_TAG
 docker push 757681054660.dkr.ecr.us-east-1.amazonaws.com/mypets/service:latest
 aws ecr describe-images --repository-name mypets/service
 
-CREAR EL LOG GROUP EN CLOUF WATCH
+CREAR EL LOG GROUP EN CLOUD WATCH
 5) Una vez se tenga la imagen en ECR, crear manualmente los logs en cloud watch  (mypets-logs)
 
 Si lo prefiere ejecute el siguiente comando para crearlo usando las apis que ofrece AWS
